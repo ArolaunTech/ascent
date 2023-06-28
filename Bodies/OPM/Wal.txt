@@ -1,0 +1,5 @@
+mass 7.442767279535156e+21
+radius 370000.0
+rotationPeriod 1009411.0
+navballSwitchAltitude 22200.0
+atmosphere false
