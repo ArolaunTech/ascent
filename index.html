@@ -1,15 +1,22 @@
 <!doctype html>
 <html>
 	<head>
-		<link href="style.css" rel="stylesheet">
-
 		<style>
 			* {
 				font-family: sans-serif;
 			}
+
+			.centered {
+				display: flex;
+				justify-content: center;
+			}
 		</style>
 	</head>
 	<body>
-		<p>The quick brown fox jumps over the lazy dog. 1,234,567,890.</p>
+		<div class='centered'>
+			<canvas id='trajectory-display'>
+				Your browser doesn't support the <code><canvas></canvas> element.
+			</canvas>
+		</div>
 	</body>
 </html>
