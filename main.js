@@ -9,6 +9,6 @@ var gltraj = trajCanvas.getContext('webgl2');
 
 //Error throw
 if (!gltraj) {
-  alert('Your browser doesn't appear to support WebGL.');
-  throw('Your browser doesn't appear to support WebGL.');
+  alert("Your browser doesn't appear to support WebGL.");
+  throw "Your browser doesn't appear to support WebGL.";
 }
