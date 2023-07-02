@@ -1,2 +1,4 @@
 //Main js file
-console.log(add(5,5));
+
+//GL context
+var canvas = document.getElementById('');
