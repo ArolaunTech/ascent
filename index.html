@@ -1,28 +1,224 @@
 <!doctype html>
 <html>
 	<head>
-		<style>
-			* {
-				font-family: sans-serif;
-			}
-
-			.centered {
-				display: flex;
-				justify-content: center;
-			}
-
-			body {
-				background-color: #0f2332;
-			}
-		</style>
-		<script src='functions.js'></script>
+		<title>
+			H
+		</title>
+		<link rel='stylesheet' href='/Users/aaditya/style.css'>
+		<script src='/Users/aaditya/functions.js'></script>
 	</head>
 	<body>
 		<div class='centered'>
-			<canvas id='trajectory-display'>
-				Your browser doesn't support the <code><canvas></canvas> element.
-			</canvas>
+			<span style='background:#07090c; width:80%; height:100%; max-width: 1200px;'>
+				<header>
+					<h1 style='margin:10px'>Single-Body</h1>
+				</header>
+				<section id='main'>
+					<section id='inputs'>
+						<h2 style='margin-bottom:0px;'>Inputs</h2>
+						<hr>
+						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Initial State</h3>
+							<div class='centered'>
+								<label for='alt' class='input-label-l'>Altitude:</label>
+								<input type='number' placeholder='0' value='0' id='alt' min='0' style='color:black; margin-left:5px; margin-right:5px;'>
+								<label for='alt' class='input-label'>km above surface</label>
+							</div>
+							<div class='centered'>
+								<label for='att' class='input-label-l'>Attitude:</label>
+								<input type='number' placeholder='90' value='90' min='-90' max='270' id='att' style='color:black; margin-left:5px; margin-right:5px;'>
+								<label for='att' class='input-label'>° above east horizon</label>
+							</div>
+							<div class='centered'>
+								<label for='spd' class='input-label-l'>Speed:</label>
+								<input type='number' placeholder='0' value='0' min='0' id='spd' style='color:black; margin-left:5px; margin-right:5px;'>
+								<label for='spd' class='input-label'>m/s relative to surface</label>
+							</div>
+							<div class='centered'>
+								<label for='spt' class='input-label-l'>Prograde vector:</label>
+								<input type='number' placeholder='0' value='0' min='0' id='spt' style='color:black; margin-left:5px; margin-right:5px;'>
+								<label for='spt' class='input-label'>° above east horizon</label>
+							</div>
+						</section>
+						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Craft Parameters</h3>
+						</section>
+						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Body Parameters</h3>
+							<div class='centered'>
+								<label for='system' class='input-label-l'>Solar system:</label>
+								<select name='system' id='system' style='color:black; width:60px;'>
+									<option value='stock'>Stock</option>
+									<option value='rss'>RSS</option>
+									<option value='opm'>OPM</option>
+									<option value='jnsq'>JNSQ</option>
+									<option value='gpp'>GPP</option>
+								</select>
+								<label for='system' class='input-label'> </label>
+							</div>
+							<div class='centered'>
+								<label for='object' class='input-label-l'>Object: </label>
+								<select name='object' id='object' style='color:black; width:60px;'>
+									<option value=' '></option>
+								</select>
+								<label for='object' class='input-label'> </label>
+							</div>
+							<div class='centered'>
+								<input type="button" name="update-object-select" id='update-object-select' value='Use selected object'>
+							</div>
+							<p style='text-align: center; margin-bottom:4px;'>
+								Or select a .cfg file:
+							</p>
+							<div class='centered'>
+								<label class='customfile'>
+									<p style='margin: 3px; color:black; font-size:14px; text-align:center;'>Import .cfg</p>
+									<input type='file' name="cfg" id='cfg' accept='.cfg'>
+								</label>
+								<label style='margin:5px;' id='customfilelabel'>No file selected</label>
+							</div>
+							<div class='centered'>
+								<input type="button" name="update-object" id='update-object' value='Use imported file'>
+							</div>
+							<div class="centered">
+								<p style='font-size: 14px; margin:3px;' id='body-display'>
+									Selected Object: Sun (stock)
+								</p>
+							</div><div class="centered">
+								<p style='font-size: 15px; margin:3px; text-align: center;' id='prop-display'>
+									Mass: 14391 kg
+									<br>
+									Radius: hfaihioea <br>
+									HI
+								</p>
+							</div>
+						</section>
+						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Simulation Parameters</h3>
+							<div class='centered'>
+								<h4 style='margin:3px;'>
+									Timestep
+								</h4>
+							</div><div class='centered'>
+								<p style='margin:3px; text-align: center;'>
+									Lower values mean a more accurate simulation, and higher values mean a quicker, more performant one.
+								</p>
+							</div>
+							<div class='centered'>
+								<input type='range' id='timestep' name='timestep' value='0' min='0' max='1' step='0.001'>
+							</div>
+							<div class='centered'>
+								<p style="margin-top:3px;" id='timestep-display'>
+									1.0ms
+								</p>
+							</div>
+						</section>
+						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Optimization Progress</h3>
+							<div class='progress-back'>
+								<div class='progress-front'>.</div>
+							</div>
+							<p style='text-align: right; margin-top:2px; margin-right: 20px; font-size: 14px; margin-bottom: 5px;'>
+								0%
+							</p>
+						</section>
+						<section>
+							<div class='centered' style='width:100%'>
+								<input type='button' value='Optimize' id='start-button'>
+								<input type='button' value='Stop' id='stop-button'>
+							</div>
+						</section>
+					</section><section id='outputs'>
+						<h2 style='margin-bottom:0px;'>Results</h2>
+						<hr>
+						<section>
+							<canvas id='traj' width='100px' height='100px'>Your browser doesn't support the canvas element.</canvas>
+						</section>
+						<section>
+							<div class='centered'>
+								<h3 style='margin:5px;'>Mission Time</h3>
+							</div>
+							<div class='centered'>
+								<input type='range' min='0' max='1' step='any' id='flight-time' style='width:100%'>
+							</div>
+							<div class='centered'>
+								<p style='margin:5px;' id='flight-display-time'>MET: T+ 0y, 0d, 00:00:00</p>
+							</div>
+						</section>
+						<section>
+							<div class='centered'>
+								<h3 style='margin:5px;'>Rocket Status</h3>
+							</div>
+							<div class="centered">
+								<table style='width:80%; border-spacing: 0px'>
+									<tr class='r1'>
+										<td class='table-lable'>Rocket Status</td>
+										<td>Alive</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>dV used</td>
+										<td>0 m/s</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Reentry heating (estimated)</td>
+										<td>800K</td>
+									</tr>
+								</table>
+							</div>
+							<div class='centered'>
+								<h3 style='margin-bottom:5px;'>Keplerian Orbital Elements</h3>
+							</div>
+							<div class="centered">
+								<table style='width:80%; border-spacing: 0px'>
+									<tr class='r1'>
+										<td class='table-lable'>SMA</td>
+										<td>680 km</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Eccentricity</td>
+										<td>0</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Inclination</td>
+										<td>0°</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>LAN</td>
+										<td>0°</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Argument of Periapsis</td>
+										<td>0°</td>
+									</tr>
+								</table>
+							</div>
+							<div class='centered'>
+								<h3 style='margin-bottom:5px;'>Orbit Position and Manuever Mode</h3>
+							</div>
+							<div class="centered">
+								<table style='width:80%; border-spacing: 0px'>
+									<tr class='r1'>
+										<td class='table-lable'>True Anomaly</td>
+										<td>0°</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Mean Anomaly</td>
+										<td>0°</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Apoapsis above surface</td>
+										<td>80 km</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Time to apoapsis</td>
+										<td>0s</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Periapsis above surface</td>
+										<td>80 km</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Time to periapsis</td>
+										<td>0s</td>
+									</tr>
+								</table>
+							</div>
+						</section>
+					</section>
+				</section>
+				<footer>
+
+				</footer>
+			</span>
 		</div>
-		<script src='main.js'></script>
+		<script src='/Users/aaditya/main.js'></script>
 	</body>
 </html>
