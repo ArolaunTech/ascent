@@ -1,4 +1,5 @@
 //Main js file
+console.log(await fetch('/bodies/Stock/Eve.cfg'));
 
 //Get canvases
 var trajcanvas = document.getElementById('traj');
