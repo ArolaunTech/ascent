@@ -14,12 +14,13 @@ hr {
 	margin:0px;
 }
 
-input[type='number'], select {
+input[type='number'], select, input[type='text'] {
 	width:50px;
 	border: 2px solid #ccc;
 	margin-left:5px;
 	margin-right:5px;
 	border-radius: 3px;
+	color:black;
 }
 
 input[type='file'] {
@@ -36,10 +37,10 @@ input[type='button'] {
 	border-radius: 5px;
 	margin-top: 0px;
 	margin-left: 5px;
+	color:black;
 }
 
 input[type='button']:hover {
-	color: #eee;
 	cursor: pointer;
 }
 
@@ -132,6 +133,15 @@ input[type='range']:hover {
 	background-color: #888;
 }
 
+.short-pos {
+	width:30px;
+}
+
+.keepcolor:hover {
+	color:black;
+	font-weight: bold;
+}
+
 #main {
 	display:flex;
 	flex-direction:row;
@@ -153,22 +163,29 @@ input[type='range']:hover {
 	aspect-ratio: 16/9;
 }
 
+#density, #sound {
+	margin-top: 5px;
+	width: 100%;
+}
+
 #start-button {
-	background-color: #08f;
+	background-color: #62a3e1;
 	height: 20px;
 }
 
-#stop-button {
-	background-color: #f20;
+#stop-button,.redstop {
+	background-color: #fd6f6f;
 	height: 20px;
 }
 
 #start-button:hover {
 	background-color: #0050c6;
+	color: #eee;
 }
 
-#stop-button:hover {
+#stop-button:hover,.redstop:hover {
 	background-color: #b00;
+	color: #eee;
 }
 
 #timestep::-webkit-slider-thumb {
@@ -202,4 +219,9 @@ input[type='range']:hover {
 
 #update-object-select {
 	margin-top: 5px;
+}
+
+#planet-display {
+	width:100%;
+	aspect-ratio: 1.5;
 }
