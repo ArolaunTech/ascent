@@ -1,5 +1,5 @@
 //Main js file
-var a = await fetch('./bodies/Stock/Eve.cfg');
+var a = fetch('./bodies/Stock/Eve.cfg');
 console.log(a);
 
 //Get canvases
