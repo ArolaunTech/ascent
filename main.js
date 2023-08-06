@@ -1,5 +1,5 @@
 //Main js file
-var a = fetch('./bodies/Stock/Eve.cfg');
+var a = fetch('./bodies/Stock/Eve.txt');
 console.log(a);
 
 //Get canvases
