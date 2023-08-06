@@ -3,42 +3,19 @@ var bodyprops = new Map();
 
 var prop2_display = document.getElementById('planet-display');
 var prop2 = prop2_display.getContext('2d');
-/*
-window.onresize = function(e) {
-	prop2_display.height = prop2_display.width*0.7;
-
-	propwidth = prop2_display.width;
-	propheight = prop2_display.height;
-
-	if (bodyprops.has('enabled')) {
-		if (bodyprops.has('invWaveLength')) {
-			var inv = bodyprops.get('invWaveLength');
-			var s = determineScaleFactor(inv[0],inv[1],inv[2],175);
-			prop2.fillStyle = rgbString(inv[0]*s,inv[1]*s,inv[2]*s); 
-		} else {
-			prop2.fillStyle = 'white';
-		}
-	} else {
-		prop2.fillStyle='black';
-	}
-
-	prop2.beginPath();
-	prop2.arc(propwidth/2, propheight/2, 0.5*Math.min(propwidth, propheight), 0, 2*Math.PI, false);
-	prop2.fill();
-}*/
 
 function updatePropDisplay() {
 	//Update the body display
 	//Get HTML elements
 	var prop_display = document.getElementById('prop-display');
 
-	prop_display.innerHTML = '<img src="/Users/aaditya/weight.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Mass: '+bodyprops.get('mass').toExponential(6)+' kg<br><img src="/Users/aaditya/radius.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Radius: '+bodyprops.get('radius')/1000+' km<br><img src="/Users/aaditya/rot.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Rotational Period: ';
+	prop_display.innerHTML = '<img src="icons/weight.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Mass: '+bodyprops.get('mass').toExponential(6)+' kg<br><img src="icons/radius.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Radius: '+bodyprops.get('radius')/1000+' km<br><img src="/Users/aaditya/rot.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Rotational Period: ';
 	if (bodyprops.get('rotates')) {
-		prop_display.innerHTML = prop_display.innerHTML + +parseFloat(bodyprops.get('rotationPeriod').toFixed(2)) + ' s<br><img src="/Users/aaditya/up_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (UP): ';
+		prop_display.innerHTML = prop_display.innerHTML + +parseFloat(bodyprops.get('rotationPeriod').toFixed(2)) + ' s<br><img src="icons/up_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (UP): ';
 	} else {
-		prop_display.innerHTML = prop_display.innerHTML + 'Infinity s<br><img src="/Users/aaditya/up_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (UP): '
+		prop_display.innerHTML = prop_display.innerHTML + 'Infinity s<br><img src="icons/up_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (UP): '
 	}
-	prop_display.innerHTML = prop_display.innerHTML + Math.round(bodyprops.get('navballSwitchRadiusMult')/10)/100 + 'km<br><img src="/Users/aaditya/down_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (DOWN): ';
+	prop_display.innerHTML = prop_display.innerHTML + Math.round(bodyprops.get('navballSwitchRadiusMult')/10)/100 + 'km<br><img src="icons/down_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (DOWN): ';
 	prop_display.innerHTML = prop_display.innerHTML + Math.round(bodyprops.get('navballSwitchRadiusMultLow')/10)/100 + 'km';
 	
 	if (bodyprops.has('densityCurve')) {
