@@ -2,16 +2,17 @@
 <html>
 	<head>
 		<title>
-			H
+			Single-Body Trajectory Optimizer
 		</title>
 		<link rel='stylesheet' href='style.css'>
-		<script src='functions.js'></script>
+		<link rel="icon" type="image/x-icon" href="favicon.png">
+		<script src='javascripts/functions.js'></script>
 	</head>
 	<body>
 		<div class='centered'>
 			<span style='background:#07090c; width:80%; height:100%; max-width: 1200px;'>
 				<header>
-					<h1 style='margin:10px'>Single-Body</h1>
+					<h1 style='margin:10px'>Single-Body Trajectory Optimizer</h1>
 				</header>
 				<section id='main'>
 					<section id='inputs'>
@@ -42,54 +43,98 @@
 						</section>
 						<section>
 							<h3 style='margin-top:5px; margin-bottom:5px;'>Craft Parameters</h3>
+							<div class='centered'>
+								<h4  style='margin:5px;'>Stage List</h4>
+							</div>
+							<div class='centered'>
+								<input type='button' value='Add Stage' style='margin-bottom:10px; font-size:14px' class='keepcolor' id='addstagebutton'>
+							</div>
+							<div class='centered'>
+								<table style='width:70%' id='stagetable'>
+								</table>
+							</div>
 						</section>
 						<section>
 							<h3 style='margin-top:5px; margin-bottom:5px;'>Body Parameters</h3>
-							<div class='centered'>
-								<label for='system' class='input-label-l'>Solar system:</label>
-								<select name='system' id='system' style='color:black; width:60px;'>
-									<option value='stock'>Stock</option>
-									<option value='rss'>RSS</option>
-									<option value='opm'>OPM</option>
-									<option value='jnsq'>JNSQ</option>
-									<option value='gpp'>GPP</option>
-								</select>
-								<label for='system' class='input-label'> </label>
+
+							<div class="centered">
+								<h4 style='margin-bottom:5px'>Object Source</h4>
 							</div>
-							<div class='centered'>
-								<label for='object' class='input-label-l'>Object: </label>
-								<select name='object' id='object' style='color:black; width:60px;'>
-									<option value=' '></option>
-								</select>
-								<label for='object' class='input-label'> </label>
+							<div class="centered">
+								<label>
+									<select name='object-type' id='obj-type-select' style='color:black; width:130px;'>
+										<option value='drop'>From planet pack</option>
+										<option value='import'>Import .cfg</option>
+									</select>
+								</label>
 							</div>
-							<div class='centered'>
-								<input type="button" name="update-object-select" id='update-object-select' value='Use selected object'>
+							<br>
+
+							<div id='drop-input-container'>
+								<div class='centered'>
+									<label for='system' class='input-label-l'>Solar system:</label>
+									<select name='system' id='system' style='color:black; width:60px;'>
+										<option value='stock'>Stock</option>
+										<option value='rss'>RSS</option>
+										<option value='opm'>OPM</option>
+										<option value='jnsq'>JNSQ</option>
+										<option value='gpp'>GPP</option>
+									</select>
+									<label for='system' class='input-label'> </label>
+								</div>
+								<div class='centered'>
+									<label for='object' class='input-label-l'>Object: </label>
+									<select name='object' id='object' style='color:black; width:60px;'>
+										<option value=' '></option>
+									</select>
+									<label for='object' class='input-label'> </label>
+								</div>
 							</div>
-							<p style='text-align: center; margin-bottom:4px;'>
-								Or select a .cfg file:
-							</p>
-							<div class='centered'>
+
+							<div class='centered' id='file-input-container'>
 								<label class='customfile'>
 									<p style='margin: 3px; color:black; font-size:14px; text-align:center;'>Import .cfg</p>
 									<input type='file' name="cfg" id='cfg' accept='.cfg'>
 								</label>
 								<label style='margin:5px;' id='customfilelabel'>No file selected</label>
 							</div>
-							<div class='centered'>
-								<input type="button" name="update-object" id='update-object' value='Use imported file'>
-							</div>
+
 							<div class="centered">
 								<p style='font-size: 14px; margin:3px;' id='body-display'>
 									Selected Object: Sun (stock)
 								</p>
-							</div><div class="centered">
-								<p style='font-size: 15px; margin:3px; text-align: center;' id='prop-display'>
-									Mass: 14391 kg
-									<br>
-									Radius: hfaihioea <br>
-									HI
+							</div>
+
+							<div class='centered'>
+								<canvas id='planet-display'>Planet Property Display</canvas>
+							</div>
+
+							<div class='centered'>
+								<p style='text-align: center; font-size: 14px' id='prop-display'>
+									<img src='/Users/aaditya/weight.svg' alt='' height='14' style='margin-right:3px; display:inline;'/> Mass: 1.756546e+28 kg<br>
+									<img src='/Users/aaditya/radius.svg' alt='' height='14' style='margin-right:3px; display:inline;'/> Radius: 261600 km<br>
+									<img src='/Users/aaditya/rot.svg' alt='' height='14' style='margin-right:3px; display:inline;'/> Rotation Period: 432000 s<br>
+									<img src='/Users/aaditya/up_arrow.svg' alt='' height='14' style='margin-right:3px; display:inline;'/> Navball Switch Altitude (UP): 15,696 km<br>
+									<img src='/Users/aaditya/down_arrow.svg' alt='' height='14' style='margin-right:3px; display:inline;'/> Navball Switch Altitude (DOWN): 14,388 km<br>
 								</p>
+							</div>
+
+							<div class='centered'>
+								<h4 style='margin-bottom: 0px;'>
+									Density vs. Altitude
+								</h4>
+							</div>
+							<div class='centered'>
+								<canvas id='density' style='margin: 10px;'>Density Graph</canvas>
+							</div>
+
+							<div class='centered'>
+								<h4 style='margin: 0px;'>
+									Sound speed vs. Altitude
+								</h4>
+							</div>
+							<div class='centered'>
+								<canvas id='sound' style='margin: 10px;'>Sound Speed Graph</canvas>
 							</div>
 						</section>
 						<section>
@@ -113,11 +158,16 @@
 							</div>
 						</section>
 						<section>
+							<h3 style='margin-top:5px; margin-bottom:5px;'>Optimization Settings</h3>
+							<h4 style='text-align: center; margin-top:2px; margin-bottom: 5px;'>
+								Options
+							</h4>
+
 							<h3 style='margin-top:5px; margin-bottom:5px;'>Optimization Progress</h3>
 							<div class='progress-back'>
 								<div class='progress-front'>.</div>
 							</div>
-							<p style='text-align: right; margin-top:2px; margin-right: 20px; font-size: 14px; margin-bottom: 5px;'>
+							<p style='text-align: center; margin-top:2px; margin-right: 20px; font-size: 14px; margin-bottom: 5px;'>
 								0%
 							</p>
 						</section>
@@ -131,7 +181,7 @@
 						<h2 style='margin-bottom:0px;'>Results</h2>
 						<hr>
 						<section>
-							<canvas id='traj' width='100px' height='100px'>Your browser doesn't support the canvas element.</canvas>
+							<canvas id='traj' width='100px' height='100px'>Trajectory Graph</canvas>
 						</section>
 						<section>
 							<div class='centered'>
@@ -151,12 +201,33 @@
 							<div class="centered">
 								<table style='width:80%; border-spacing: 0px'>
 									<tr class='r1'>
-										<td class='table-lable'>Rocket Status</td>
+										<td class='table-lable'>Craft Status</td>
 										<td>Alive</td>
 									</tr><tr class='r2'>
-										<td class='table-lable'>dV used</td>
+										<td class='table-lable'>Height</td>
+										<td>0 km</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Lat velocity</td>
+										<td>0 m/s</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Long velocity</td>
 										<td>0 m/s</td>
 									</tr><tr class='r1'>
+										<td class='table-lable'>Vertical velocity</td>
+										<td>0 m/s</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Horizontal velocity</td>
+										<td>0 m/s</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>dV used</td>
+										<td>0 m/s</td>
+									</tr><tr class='r2'>
+										<td class='table-lable'>Pitch</td>
+										<td>0 degrees</td>
+									</tr><tr class='r1'>
+										<td class='table-lable'>Heading</td>
+										<td>0 degrees</td>
+									</tr><tr class='r2'>
 										<td class='table-lable'>Reentry heating (estimated)</td>
 										<td>800K</td>
 									</tr>
@@ -175,13 +246,13 @@
 										<td>0</td>
 									</tr><tr class='r1'>
 										<td class='table-lable'>Inclination</td>
-										<td>0°</td>
+										<td>0 degrees</td>
 									</tr><tr class='r2'>
 										<td class='table-lable'>LAN</td>
-										<td>0°</td>
+										<td>0 degrees</td>
 									</tr><tr class='r1'>
 										<td class='table-lable'>Argument of Periapsis</td>
-										<td>0°</td>
+										<td>0 degrees</td>
 									</tr>
 								</table>
 							</div>
@@ -192,10 +263,10 @@
 								<table style='width:80%; border-spacing: 0px'>
 									<tr class='r1'>
 										<td class='table-lable'>True Anomaly</td>
-										<td>0°</td>
+										<td>0 degrees</td>
 									</tr><tr class='r2'>
 										<td class='table-lable'>Mean Anomaly</td>
-										<td>0°</td>
+										<td>0 degrees</td>
 									</tr><tr class='r1'>
 										<td class='table-lable'>Apoapsis above surface</td>
 										<td>80 km</td>
@@ -219,6 +290,10 @@
 				</footer>
 			</span>
 		</div>
-		<script src='main.js'></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src='javascripts/graph.js'></script>
+		<script src='javascripts/cfg_reader.js'></script>
+		<script src='javascripts/input.js'></script>
+		<script src='javascripts/main.js'></script>
 	</body>
 </html>
