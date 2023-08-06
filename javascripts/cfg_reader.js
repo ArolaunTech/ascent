@@ -9,7 +9,7 @@ function updatePropDisplay() {
 	//Get HTML elements
 	var prop_display = document.getElementById('prop-display');
 
-	prop_display.innerHTML = '<img src="icons/weight.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Mass: '+bodyprops.get('mass').toExponential(6)+' kg<br><img src="icons/radius.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Radius: '+bodyprops.get('radius')/1000+' km<br><img src="/Users/aaditya/rot.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Rotational Period: ';
+	prop_display.innerHTML = '<img src="icons/weight.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Mass: '+bodyprops.get('mass').toExponential(6)+' kg<br><img src="icons/radius.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Radius: '+bodyprops.get('radius')/1000+' km<br><img src="icons/rot.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Rotational Period: ';
 	if (bodyprops.get('rotates')) {
 		prop_display.innerHTML = prop_display.innerHTML + +parseFloat(bodyprops.get('rotationPeriod').toFixed(2)) + ' s<br><img src="icons/up_arrow.svg" alt="" height="14" style="margin-right:3px; display:inline;"/> Navball Switch Altitude (UP): ';
 	} else {
