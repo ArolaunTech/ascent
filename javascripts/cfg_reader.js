@@ -265,8 +265,10 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 		}
 		var found = false;
 		for (var j = 0; j < allowedFields.length; j++) {
-			if (stack[i][0].substr(0, allowedFields[j].length) == allowedFields[j]) {
-				found = true;
+			if (stack[i].length > 0) {
+				if (stack[i][0].substr(0, allowedFields[j].length) == allowedFields[j]) {
+					found = true;
+				}
 			}
 		}
 		if (!found) {
