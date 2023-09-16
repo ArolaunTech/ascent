@@ -21,10 +21,8 @@ var objects = [
 		'Krel', 'Aden', 'Huygen', 'Riga', 'Talos', 'Eeloo', 'Celes', 'Tam', 'Nara',
 		'Amos', 'Enon', 'Prax'
 	],[
-		'Sun', 'Moho', 'Eve', 'Gilly', 'Kerbin', 'Mun', 'Minmus', 'Duna', 'Ike',
-		'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Sarnus', 'Hale',
-		'Ovok', 'Eeloo', 'Slate', 'Tekto', 'Urlum', 'Polta', 'Priax', 'Wal', 'Tal',
-		'Neidon', 'Thatmo', 'Nissee', 'Plock', 'Karen'
+		'Sarnus', 'Hale', 'Ovok', 'Eeloo', 'Slate', 'Tekto', 'Urlum', 'Polta', 'Priax', 
+		'Wal', 'Tal', 'Neidon', 'Thatmo', 'Nissee', 'Plock', 'Karen'
 	],[
 		'Ciro', 'Icarus', 'Thalia', 'Eta', 'Niven', 'Gael', 'Iota', 'Ceti', 'Tellumo',
 		'Gratian', 'Geminus', 'Otho', 'Augustus', 'Hephaestus', 'Jannah', 'Gauss',
