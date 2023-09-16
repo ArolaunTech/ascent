@@ -75,6 +75,14 @@ function updateBody(mode) { //Update body display
 				systemindex = i;
 			}
 		}
+		//Read cfg
+		var cfgFileName = '/bodies/'+sys+'/'+object.value+'.cfg';
+		console.log(cfgFileName);
+
+		fetch(cfgFileName).then(readandinterpretcfg);
+
+		//var ghCfgFileName = '';
+
 		updateBodyDisplay(systemcapitalized[systemindex], object.value);
 	}
 }
@@ -106,19 +114,20 @@ addstagebutton.onclick = function(event) { //Add a new stage.
 			Stage `+stageid+`
 		</h4>
 		<p style='margin-bottom:5px; font-size: 15px; margin-top:0px; text-align:center;'>
-			Starting Mass: <input type='number' min='0' step='0.1' style='margin-right:0px'> t
+			Starting Mass: <input type='number' min='0' step='0.1' style='margin-right:0px' placeholder='0'> t
 		</p>
 		<p style='margin-top:0px; text-align:center; font-size: 15px;'>
 			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> LF, 
 			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> OX, 
 			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> MP, 
-			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> XE
+			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> XE,
+			<input type='number' value='0' placeholder='0' min='0' style='width:30px; margin:0px;'> SF
 		</p>
 		<p style='margin-top:0px; text-align:center; margin-bottom: 5px; font-size: 15px;'>
 			Starting Wing Area: <input type='number' value='0' placeholder='0' min='0' step='0.001' style='width:50px; margin:0px;'> m^2
 		</p>
 		<p style='margin-top:0px; text-align:center; font-size: 15px;'>
-			Starting Wing AoA: <input type='number' value='0' placeholder='0' min='-90' max='90' style='width:30px; margin:0px;'> degrees
+			Wing AoA: <input type='number' value='0' placeholder='0' min='-90' max='90' style='width:30px; margin:0px;'> degrees
 		</p>
 
 		<h4 style='text-align: center;'>
@@ -192,9 +201,55 @@ addstagebutton.onclick = function(event) { //Add a new stage.
 				</h4>
 				<div class='centered'>
 					<input type='number' value='5' min='1' step='1' style='width:50px; margin-right:2px;'>
-					<select style='width:80px; margin-left:0px;'>
-						<option>Mohos</option>
-						<option>Eves</option>
+					<select style='width:auto; margin-left:0px;'>
+						<optgroup label='LF+OX Engines'>
+							<option value='Ant'>Ants</option>
+							<option value='Spider'>Spiders</option>
+							<option value='Terrier'>Terriers</option>
+							<option value='Twitch'>Twitches</option>
+							<option value='Spark'>Sparks</option>
+							<option value='Poodle'>Poodles</option>
+							<option value='Thud'>Thuds</option>
+							<option value='Dart'>Darts</option>
+							<option value='RAPIER (closed-cycle)'>RAPIERs (rocket)</option>
+							<option value='Swivel'>Swivels</option>
+							<option value='Reliant'>Reliants</option>
+							<option value='Skipper'>Skippers</option>
+							<option value='Vector'>Vectors</option>
+							<option value='Rhino'>Rhinos</option>
+							<option value='Mainsail'>Mainsails</option>
+							<option value='Twin-Boar'>Twin-Boars</option>
+							<option value='Mammoth'>Mammoths</option>
+						</optgroup>
+						<optgroup label='NERV'>
+							<option value='Nerv'>Nervs</option>
+						</optgroup>
+						<optgroup label='Monoprop Engines'>
+							<option value='Puff'>Puffs</option>
+						</optgroup>
+						<optgroup label='Ion Engines'>
+							<option value='Dawn'>Dawns</option>
+						</optgroup>
+						<optgroup label='SRBs'>
+							<option value='Mite'>Mites</option>
+							<option value='Separatron'>Separatrons</option>
+							<option value='Shrimp'>Shrimps</option>
+							<option value='Flea'>Fleas</option>
+							<option value='Hammer'>Hammers</option>
+							<option value='Thumper'>Thumpers</option>
+							<option value='Kickback'>Kickbacks</option>
+							<option value='Thoroughbred'>Thoroughbreds</option>
+							<option value='Clydesdale'>Clydesdales</option>
+						</optgroup>
+						<optgroup label='Jets'>
+							<option value='Juno'>Junos</option>
+							<option value='Wheesley'>Wheesleys</option>
+							<option value='Panther (dry)'>Panthers (dry)</option>
+							<option value='Panther (wet)'>Panthers (wet)</option>
+							<option value='Goliath'>Goliaths</option>
+							<option value='Whiplash'>Whiplashes</option>
+							<option value='RAPIER (open-cycle)'>RAPIERs (jet)</option>
+						</optgroup>
 					</select>	
 				</div>
 
