@@ -36,6 +36,18 @@ class FloatCurve { //Float curve made out of keys
 		}
 	}
 
+	setFromKeyString(str) {
+		str.replaceAll('\t', '');
+		var lines = str.split('\n');
+		var nl = [];
+		for (var i = 0; i < lines.length; i++) {
+			if (lines != '') {
+				nl.push(lines[i]);
+			}
+		}
+		this.setFromKeyList(nl);
+	}
+
 	setAsConst(val, min, max) {
 		this.keys = [];
 		this.keys.push(new Key(min, val, 0));
@@ -153,14 +165,26 @@ class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
+
+	multScalar(s) {
+		return new Vector3(this.x*s,this.y*s,this.z*s);
+	}
+
+	get magnitude() {
+		return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+	}
 }
 
 function dot3(a, b) {
 	return a.x*b.x + a.y*b.y + a.z*b.z; 
 }
 
+function add(a, b) {
+	return new Vector3(a.x+b.x, a.y+b.y, a.z+b.z);
+}
+
 //Drag Cube Normals (+z is up, -z is down, +x is right, -x is left, +y is front, -y is back)
-var dgv = [new Vector3(0,0,1), new Vector3(0,0,-1), new Vector3(1,0,0), new Vector3(-1,0,0), new Vector3(0,1,0), new Vector3(0,-1,0)];
+var dgv = [[0,0,1], [0,0,-1], [1,0,0], [-1,0,0], [0,1,0], [0,-1,0]];
 console.log(dgv);
 
 class dragcube {
@@ -318,6 +342,18 @@ function determineConnectedComponents(graph) { //Get connected components of gra
 function comparenum(a, b) {
 	var la = a.at(-1);
 	var lb = b.at(-1);
+	if (la < lb) {
+		return -1;
+	}
+	if (lb < la) {
+		return 1;
+	}
+	return 0;
+}
+
+function comparekey(a, b) {
+	var la = a.x;
+	var lb = b.x;
 	if (la < lb) {
 		return -1;
 	}
