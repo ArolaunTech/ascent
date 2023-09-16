@@ -79,7 +79,9 @@ function updateBody(mode) { //Update body display
 		var cfgFileName = 'bodies/'+sys+'/'+object.value+'.cfg';
 		console.log(cfgFileName);
 
-		fetch(cfgFileName).then(readandinterpretcfg);
+		if (object.length > 1) {
+			fetch(cfgFileName).then(readandinterpretcfg);
+		}
 
 		//var ghCfgFileName = '';
 
