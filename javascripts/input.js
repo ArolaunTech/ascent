@@ -46,6 +46,19 @@ var file_input_container = document.getElementById('file-input-container'); //Fi
 var addstagebutton = document.getElementById('addstagebutton');
 var stagetable = document.getElementById('stagetable');
 
+var timestep = document.getElementById('timestep');
+var timestepOut = document.getElementById('timestep-display');
+var gts = 0.001;
+
+timestep.oninput = function(e) {
+	var gts = Math.pow(10,4*timestep.value-3);
+	if (gts < 1) {
+		timestepOut.innerHTML = (1000*gts).toFixed(2)+' ms';
+	} else {
+		timestepOut.innerHTML = gts.toFixed(2) + ' s';
+	}
+}
+
 //Input handling functions
 function updateBodyDisplay(systemz, objectz) {
 	body_display.innerHTML = 'Selected Object: ' + objectz + ' (' + systemz + ')';
