@@ -188,7 +188,7 @@ addstagebutton.onclick = function(event) { //Add a new stage.
 		</div>
 
 		<div class='centered'>
-			<table style='width:70%' id='e`+stageid+`'>
+			<table style='width:calc(min(100%,250px))' id='e`+stageid+`'>
 			</table>
 		</div>
 
