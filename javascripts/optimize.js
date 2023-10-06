@@ -136,14 +136,6 @@ function getStageConsumption(alt, speed, stageindex) { //Use stageprops.
 	return out;
 }
 
-function getStageIndex(time) {
-
-}
-
-function getThrust(time, p) {
-
-}
-
 function magnitude(pos) {
 	return Math.sqrt(pos[0]*pos[0]+pos[1]*pos[1]+pos[2]*pos[2]);
 }
