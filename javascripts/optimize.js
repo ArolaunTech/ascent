@@ -166,6 +166,8 @@ function simulate(code, ts, init, initVel) {
 	var fuelmass = resources[0]*5 + resources[1]*5 + resources[2]*4 + resources[3]*0.1 + resources[4]*7.5;
 	var drymass = stageprops[0].get('mass')*1000 - fuelmass;
 
+	var dv = 0;
+
 	while (t < 10000) {
 		var orbv = [(currPos[0]-prevPos[0])/ts,(currPos[1]-prevPos[1])/ts,(currPos[2]-prevPos[2])/ts];
 		//Get rotation velocity
