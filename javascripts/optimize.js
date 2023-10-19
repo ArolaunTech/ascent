@@ -214,6 +214,7 @@ function simulate(code, ts, init, initVel) {
 		}
 		var mass = drymass + resources[0]*5 + resources[1]*5 + resources[2]*4 + resources[3]*0.1 + resources[4]*7.5;
 		var engineAcc = thrust/mass;
+		dv += engineAcc * ts;
 		acc = [acc[0]+craftDir[0]*engineAcc, acc[1]+craftDir[1]*engineAcc, acc[2]+craftDir[2]*engineAcc];
 		//Verlet
 		var newPos = [currPos[0]+ts*(orbv[0]+ts*acc[0]), currPos[1]+ts*(orbv[1]+ts*acc[1]), currPos[2]+ts*(orbv[2]+ts*acc[2])];
