@@ -236,6 +236,7 @@ function simulate(code, ts, init, initVel) {
 		}
 
 		t += ts;
+		console.log(dv);
 	}
 }
 
