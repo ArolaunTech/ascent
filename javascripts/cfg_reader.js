@@ -397,14 +397,16 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 			var pressureCurve = objmap.get('pressureCurve');
 			for (var i = 0; i < pressureCurve.keys.length; i++) {
 				pressureCurve.keys[i].x *= maxAlt;
-				pressureCurve.keys[i].dx /= maxAlt;
+				pressureCurve.keys[i].dxl /= maxAlt;
+				pressureCurve.keys[i].dxr /= maxAlt;
 			}
 		}
 		if (objmap.get('temperatureCurveisNormalized')) {
 			var temperatureCurve = objmap.get('temperatureCurve');
 			for (var i = 0; i < temperatureCurve.keys.length; i++) {
 				temperatureCurve.keys[i].x *= maxAlt;
-				temperatureCurve.keys[i].dx /= maxAlt;
+				temperatureCurve.keys[i].dxl /= maxAlt;
+				temperatureCurve.keys[i].dxr /= maxAlt;
 			}
 		}
 	}
