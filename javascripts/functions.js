@@ -1,8 +1,9 @@
 class Key { //Key
-	constructor(x, y, dx) {
+	constructor(x, y, dxl, dxr) {
 		this.x = x;
 		this.y = y;
-		this.dx = dx;
+		this.dxl = dxl;
+		this.dxr = dxr;
 	}
 
 	setFromString(str) { //Read and interpret string as key/value pair.
@@ -15,9 +16,13 @@ class Key { //Key
 		this.x = nums[0];
 		this.y = nums[1];
 
-		this.dx = undefined;
+		this.dxl = undefined;
 		if (nums.length > 2) {
-			this.dx = nums[2];
+			this.dxl = nums[2];
+		}
+		this.dxr = undefined;
+		if (nums.length > 3) {
+			this.dxr = nums[3];
 		}
 	}
 }
@@ -30,7 +35,7 @@ class FloatCurve { //Float curve made out of keys
 	setFromKeyList(strlist) {
 		this.keys = [];
 		for (var i = 0; i < strlist.length; i++) {
-			var newkey = new Key(0,0,0);
+			var newkey = new Key(0,0,0,0);
 			newkey.setFromString(strlist[i]);
 			this.keys.push(newkey);
 		}
@@ -50,8 +55,8 @@ class FloatCurve { //Float curve made out of keys
 
 	setAsConst(val, min, max) {
 		this.keys = [];
-		this.keys.push(new Key(min, val, 0));
-		this.keys.push(new Key(max, val, 0));
+		this.keys.push(new Key(min, val, 0, 0));
+		this.keys.push(new Key(max, val, 0, 0));
 	}
 
 	valueAt(xv) {
@@ -65,10 +70,10 @@ class FloatCurve { //Float curve made out of keys
 		}
 
 		if (xv > this.keys[this.keys.length-1].x) {
-			return [this.keys[this.keys.length-1].y, this.keys[this.keys.length-1].dx];
+			return [this.keys[this.keys.length-1].y + this.keys[this.keys.length-1].dxr*(xv-this.keys[this.keys.length-1].x), this.keys[this.keys.length-1].dxr];
 		}
 		if (xv < this.keys[0].x) {
-			return [this.keys[0].y, this.keys[0].dx];
+			return [this.keys[0].y + this.keys[0].dxl*(xv-this.keys[0].x), this.keys[0].dxl];
 		}
 		
 		//Determine cube
@@ -77,11 +82,11 @@ class FloatCurve { //Float curve made out of keys
 
 		var k1x = key1.x;
 		var k1y = key1.y;
-		var k1d = key1.dx;
+		var k1dr = key1.dxr;
 
 		var k2x = key2.x;
 		var k2y = key2.y;
-		var k2d = key2.dx;
+		var k2dl = key2.dxl;
 
 		var xint = (xv-k1x)/(k2x-k1x);
 
@@ -91,8 +96,8 @@ class FloatCurve { //Float curve made out of keys
 		var y0 = k1y;
 		var y1 = k2y;
 
-		var d0 = k1d*(k2x-k1x);
-		var d1 = k2d*(k2x-k1x);
+		var d0 = k1dr*(k2x-k1x);
+		var d1 = k2dl*(k2x-k1x);
 
 		var d = y0;
 		var c = d0;
@@ -105,17 +110,20 @@ class FloatCurve { //Float curve made out of keys
 	fixDerivatives() {
 		//Make up derivatives if none exist
 		//Special case: first and last keys
-		if (this.keys[0].dx == undefined) {
-			this.keys[0].dx = 0;
+		if (this.keys[0].dxr == undefined) {
+			this.keys[0].dxr = 0;
 		}
-		if (this.keys[this.keys.length-1].dx == undefined) {
-			this.keys[this.keys.length-1].dx = 0;
+		if (this.keys[this.keys.length-1].dxl == undefined) {
+			this.keys[this.keys.length-1].dxl = 0;
 		}
+		this.keys[0].dxl = 0;
+		this.keys[this.keys.length-1].dxr = 0;
 		//Create derivatives for rest of elements
 		for (var i = 1; i < this.keys.length-1; i++) {
-			if (this.keys[i].dx == undefined) {
-				this.keys[i].dx = (this.keys[i+1].y-this.keys[i-1].y)/(this.keys[i+1].x-this.keys[i-1].x);
+			if (this.keys[i].dxl == undefined) {
+				this.keys[i].dxl = (this.keys[i+1].y-this.keys[i-1].y)/(this.keys[i+1].x-this.keys[i-1].x);
 			}
+			this.keys[i].dxr = this.keys[i].dxl;
 		}
 	}
 }
