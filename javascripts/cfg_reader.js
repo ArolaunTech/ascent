@@ -462,8 +462,10 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 			}
 
 			for (var i = 0; i < alts.length; i++) {
-				curvePress.keys.push(new Key(alts[i], presses[i], dxes[i]));
+				curvePress.keys.push(new Key(alts[i], presses[i], dxes[i], dxes[i]));
 			}
+			curvePress.keys[0].dxl = 0;
+			curvePress.keys[curvePress.keys.length-1].dxr = 0;
 
 			objmap.set('pressureCurve', curvePress);
 			objmap.set('temperatureCurve', curveTemp);
