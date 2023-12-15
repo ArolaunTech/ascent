@@ -493,13 +493,15 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 			//Calculate density
 			pressureCurve.keys[i].y *= amm/(8.315*temps[0]);
 			//Density derivative using product and chain rule
-			pressureCurve.keys[i].dx = pressureCurve.keys[i].dx*amm/(8.315*temps[0]) - pressureCurve.keys[i].y*amm*temps[1]/(Math.pow(temps[0],2)*8.315);
+			pressureCurve.keys[i].dxl = pressureCurve.keys[i].dxl*amm/(8.315*temps[0]) - pressureCurve.keys[i].y*amm*temps[1]/(Math.pow(temps[0],2)*8.315);
+			pressureCurve.keys[i].dxr = pressureCurve.keys[i].dxr*amm/(8.315*temps[0]) - pressureCurve.keys[i].y*amm*temps[1]/(Math.pow(temps[0],2)*8.315);
 		}
 
 		for (var i = 0; i < pressureCurve.keys.length; i++) {
 			//Calculate density
 			pressureCurve.keys[i].y *= 1000;
-			pressureCurve.keys[i].dx *= 1000;
+			pressureCurve.keys[i].dxl *= 1000;
+			pressureCurve.keys[i].dxr *= 1000;
 		}
 
 		objmap.set('densityCurve', objmap.get('pressureCurve'));
@@ -510,7 +512,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 		console.log(ssmult);
 
 		for (var i = 0; i < temperatureCurve.keys.length; i++) {
-			temperatureCurve.keys[i].dx *= 0.5*ssmult/Math.sqrt(temperatureCurve.keys[i].y);
+			temperatureCurve.keys[i].dxl *= 0.5*ssmult/Math.sqrt(temperatureCurve.keys[i].y);
+			temperatureCurve.keys[i].dxr *= 0.5*ssmult/Math.sqrt(temperatureCurve.keys[i].y);
 			temperatureCurve.keys[i].y = ssmult*Math.sqrt(temperatureCurve.keys[i].y);
 		}
 
