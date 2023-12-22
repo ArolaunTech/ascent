@@ -36,8 +36,8 @@ function getX(y, x1, y1, x2, y2) { //Inverse of a line
 function straightCurve(min, max, x1, y1, x2, y2) {
 	var out = new FloatCurve();
 	out.keys = [];
-	out.keys.push(new Key(getX(min,x1,y1,x2,y2),min,(y2-y1)/(x2-x1)));
-	out.keys.push(new Key(getX(max,x1,y1,x2,y2),max,(y2-y1)/(x2-x1)));
+	out.keys.push(new Key(getX(min,x1,y1,x2,y2),min,(y2-y1)/(x2-x1), (y2-y1)/(x2-x1)));
+	out.keys.push(new Key(getX(max,x1,y1,x2,y2),max,(y2-y1)/(x2-x1), (y2-y1)/(x2-x1)));
 	out.keys.sort(comparekey);
 	return out;
 }
@@ -45,8 +45,8 @@ function straightCurve(min, max, x1, y1, x2, y2) {
 function constCurve(val, min, max) {
 	var out = new FloatCurve();
 	out.keys = [];
-	out.keys.push(new Key(min, val, 0));
-	out.keys.push(new Key(max, val, 0));
+	out.keys.push(new Key(min, val, 0, 0));
+	out.keys.push(new Key(max, val, 0, 0));
 	out.keys.sort(comparekey);
 	return out;
 }
