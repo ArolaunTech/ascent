@@ -21,7 +21,7 @@ var objects = [
 		'Krel', 'Aden', 'Huygen', 'Riga', 'Talos', 'Eeloo', 'Celes', 'Tam', 'Nara',
 		'Amos', 'Enon', 'Prax'
 	],[
-		'Sarnus', 'Hale', 'Ovok', 'Eeloo', 'Slate', 'Tekto', 'Urlum', 'Polta', 'Priax', 
+		'Sarnus', 'Hale', 'Ovok', 'Slate', 'Tekto', 'Urlum', 'Polta', 'Priax', 
 		'Wal', 'Tal', 'Neidon', 'Thatmo', 'Nissee', 'Plock', 'Karen'
 	],[
 		'Ciro', 'Icarus', 'Thalia', 'Eta', 'Niven', 'Gael', 'Iota', 'Ceti', 'Tellumo',
