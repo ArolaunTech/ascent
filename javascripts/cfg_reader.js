@@ -436,6 +436,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 
 			objmap.set('pressureCurve', curvepress);
 			objmap.set('temperatureCurve', curvetemp);
+
+			console.log('hi');
 		} else {
 			//Determine curves (ATMOSPHERIC BODIES ONLY)
 			console.log('determineCurves');
