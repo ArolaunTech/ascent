@@ -383,3 +383,106 @@ for (var i = 0; i < 40; i++) {
 	starSize.push(Math.pow(Math.random(),2)*0.01);
 	starPhase.push(Math.random()*2*Math.PI);
 }
+
+//Generate spherical mesh
+function createSphere(r, detail) {
+	//Creates a sphere with radius r, and detail level detail
+	//Octahedron mesh
+	var points = [
+		[0,0,1],[1,0,0],[0,1,0],
+		[0,0,1],[-1,0,0],[0,1,0],
+		[0,0,1],[1,0,0],[0,-1,0],
+		[0,0,1],[-1,0,0],[0,-1,0],
+		[0,0,-1],[1,0,0],[0,1,0],
+		[0,0,-1],[-1,0,0],[0,1,0],
+		[0,0,-1],[1,0,0],[0,-1,0],
+		[0,0,-1],[-1,0,0],[0,-1,0],
+	];
+	var indices = [];
+	var vertices = [];
+	for (var i = 0; i < points.length / 3; i++) {
+		vertices = vertices.concat(genVertices(points[3 * i], points[3 * i + 1], points[3 * i + 2], detail));
+		indices = indices.concat(genIndices(detail, i * sumall(detail + 1) - 1));
+	}
+	for (i = 0; i < vertices.length / 3; i++) {
+		var l = Math.sqrt(vertices[3 * i] * vertices[3 * i] + vertices[3 * i + 1] * vertices[3 * i + 1] + vertices[3 * i + 2] * vertices[3 * i + 2]);
+		vertices[3 * i] /= l;
+		vertices[3 * i + 1] /= l;
+		vertices[3 * i + 2] /= l;
+	}
+	var normals = vertices.slice();
+	for (i = 0; i < vertices.length; i++) {
+		vertices[i] *= r;
+	}
+	var vnew = [];
+	var nnew = [];
+	for (i = 0; i < indices.length; i++) {
+		for (var j = 0; j < 3; j++) {
+			vnew.push(vertices[3*indices[i]+j]);
+			nnew.push(normals[3*indices[i]+j]);
+		}
+	}
+	return [vnew,nnew];
+}
+
+function genVertices(p1, p2, p3, detail) {
+	//Divides a triangular face.
+	var out = [];
+	for (var i = 0; i < detail + 1; i++) {
+		for (var j = 0; j < i + 1; j++) {
+			var p = lerpoint(p1, p2, i / detail);
+			p = add(p, mult(add(p3, mult(p2, -1)), j / detail));
+			out.push(p[0]);
+			out.push(p[1]);
+			out.push(p[2]);
+		}
+	}
+	return out;
+}
+
+function lerp(a, b, i) {
+	return b * i + a * (1 - i);
+}
+
+function lerpoint(a, b, i) {
+	return [lerp(a[0], b[0], i), lerp(a[1], b[1], i), lerp(a[2], b[2], i)];
+}
+
+function genRow(n, offset) {
+	var out = [];
+	var init = [sumall(n) + 1 + offset, sumall(n + 1) + 1 + offset, sumall(n + 1) + 2 + offset];
+	out.push(init[0]);
+	out.push(init[1]);
+	out.push(init[2]);
+	for (var i = 0; i < n; i++) {
+		init[1] = init[0] + 1;
+		out.push(init[0]);
+		out.push(init[1]);
+		out.push(init[2]);
+		init = [init[1], init[2], init[2] + 1];
+		out.push(init[0]);
+		out.push(init[1]);
+		out.push(init[2]);
+	}
+	return out;
+}
+
+function sumall(n) {
+	return n*(n+1)/2;
+}
+
+function genIndices(detail, offset) {
+	var out = [];
+	for (var i = 0; i < detail; i++) {
+		out = out.concat(genRow(i, offset));
+	}
+	return out;
+}
+
+function mult(a, i) {
+	return [a[0] * i, a[1] * i, a[2] * i];
+}
+
+function add(a, b) {
+	return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+}
