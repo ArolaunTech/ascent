@@ -326,6 +326,7 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 			objmap.set(k, stack[i][1]);
 		}
 	}
+	console.log(objmap);
 
 	if (biomecolors.length > 0) {
 		objmap.set('components', components);
@@ -364,6 +365,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 	objmap.delete('gravParameter');
 	objmap.delete('geeASL');
 
+	console.log(objmap);
+
 	//Navball Switch
 	if (objmap.has('navballSwitchRadiusMult')) {
 		objmap.set('navballSwitchRadiusMult', objr*objmap.get('navballSwitchRadiusMult'));
@@ -375,6 +378,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 	} else {
 		objmap.set('navballSwitchRadiusMultLow', 0.055*objr);
 	}
+
+	console.log(objmap);
 
 	//Rotational period is solved, so atmospheric curves
 	//Find if object has atmo, not all objects do
@@ -390,6 +395,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 	if (objmap.has('atmosphereDepth')) {
 		objmap.set('altitude', objmap.get('atmosphereDepth'));
 	}
+
+	console.log(objmap);
 
 	if (hasAtmo) {
 		var maxAlt = objmap.get('altitude');
@@ -474,6 +481,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 		}
 	}
 
+	console.log(objmap);
+
 	if (hasAtmo) {
 		objmap.set('st',objmap.get('temperatureCurve').valueAt(0)[0]);
 	}
@@ -520,6 +529,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 		objmap.set('soundCurve', objmap.get('temperatureCurve'));
 		objmap.delete('temperatureCurve');
 	}
+
+	console.log(objmap);
 
 	if (!(objmap.has('rotates'))) {
 		objmap.set('rotates', true);
