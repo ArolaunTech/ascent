@@ -418,6 +418,8 @@ function interpretcfg(text) { //Takes cfg text and interprets it.
 		}
 	}
 
+	console.log(Array.from(objmap));
+
 	if (hasAtmo) {
 		if (hasTemp && hasPress) {
 			//Read curves from string to key form
