@@ -9,7 +9,7 @@ class Key { //Key
 	setFromString(str) { //Read and interpret string as key/value pair.
 		var eqind = str.indexOf('=');
 		var rightside = str.substr(eqind+1).trim();
-		var nums = rightside.split(' ');
+		var nums = rightside.split(/\s/).filter(i => i);
 		for (var i = 0; i < nums.length; i++) {
 			nums[i] = parseFloat(nums[i]);
 		}
