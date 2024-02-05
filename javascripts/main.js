@@ -219,7 +219,7 @@ var planetVertexShader = `#version 300 es
 in vec4 position;
 
 void main() {
-	gl_Position = position;
+	gl_Position = position * vec4(0.5625, 1.0, 1.0, 1.0);
 }`;
 
 var planetFragmentShader = `#version 300 es
@@ -276,7 +276,7 @@ function animate(time) {
 	trajcanvas.width = trajcanvas.clientWidth;
 	trajcanvas.height = trajcanvas.clientHeight;
 	
-	trajgl.viewport(0,0,trajgl.canvas.height, trajgl.canvas.height);
+	trajgl.viewport(0,0,trajgl.canvas.width, trajgl.canvas.height);
 	trajgl.clear(trajgl.COLOR_BUFFER_BIT | trajgl.DEPTH_BUFFER_BIT);
 	trajgl.enable(trajgl.DEPTH_TEST);
 	trajgl.clearColor(0.055,0.071,0.102,1);
