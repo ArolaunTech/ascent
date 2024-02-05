@@ -127,6 +127,13 @@ function renderBody() {
 	prop2.restore();
 }
 
+function resizeTrajectoryCanvas() {
+	trajcanvas.width = trajcanvas.clientWidth;
+	trajcanvas.height = trajcanvas.clientHeight;
+}
+
+window.onresize = resizeTrajectoryCanvas;
+
 interpretcfg(`@Kopernicus:NEEDS[!Kopernicus]
 {
 	Body
@@ -272,9 +279,6 @@ function animate(time) {
 	if (bodyprops.size > 0) {
 		renderBody();
 	}
-
-	trajcanvas.width = trajcanvas.clientWidth;
-	trajcanvas.height = trajcanvas.clientHeight;
 	
 	trajgl.viewport(0,0,trajgl.canvas.width, trajgl.canvas.height);
 	trajgl.clear(trajgl.COLOR_BUFFER_BIT | trajgl.DEPTH_BUFFER_BIT);
