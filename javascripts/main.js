@@ -216,7 +216,7 @@ console.log(trajgl);
 
 //Shaders
 var planetVertexShader = `#version 300 es
-in vec2 position;
+in vec4 position;
 
 void main() {
 	gl_Position = position;
