@@ -240,7 +240,7 @@ out vec4 fragColor;
 void main() {
 	vec4 col = vec4(1.0, 0.0, 0.0, 1.0);
  	col *= dot(vec4(-1.0, 1.0, -1.0, 0.0), fragNormal);
-	fragColor = max(col, vec4(0.0, 0.0, 0.0, 0.0)) + vec4(0.055, 0.071, 0.102, 0.0);
+	fragColor = max(col, vec4(0.0, 0.0, 0.0, 1.0)) + vec4(0.055, 0.071, 0.102, 0.0);
 }`;
 
 function makeProgram(gl, vertexShaderSource, fragmentShaderSource) {
