@@ -233,7 +233,7 @@ function makeProgram(gl, vertexShaderSource, fragmentShaderSource) {
 	gl.compileShader(vertexShader);
 
 	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-        	throw 'Could not compile vertex shader: \n\n' + gl.getShaderInfoLog(shader) + '\n\n, check line 230 of main.js'; //Shader could not compile
+        	throw 'Could not compile vertex shader: \n\n' + gl.getShaderInfoLog(vertexShader) + '\n\n, check line 230 of main.js'; //Shader could not compile
 	}
 
 	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -241,7 +241,7 @@ function makeProgram(gl, vertexShaderSource, fragmentShaderSource) {
 	gl.compileShader(fragmentShader);
 
 	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-        	throw 'Could not compile fragment shader: \n\n' + gl.getShaderInfoLog(shader) + '\n\n, check line 230 of main.js'; //Shader could not compile
+        	throw 'Could not compile fragment shader: \n\n' + gl.getShaderInfoLog(fragmentShader) + '\n\n, check line 230 of main.js'; //Shader could not compile
 	}
 
 	var shader = gl.createProgram();
