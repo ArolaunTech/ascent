@@ -208,13 +208,58 @@ interpretcfg(`@Kopernicus:NEEDS[!Kopernicus]
 
 //Get canvases
 var trajcanvas = document.getElementById('traj');
-
 console.log(trajcanvas);
 
 //GL
 trajgl = trajcanvas.getContext('webgl2');
-
 console.log(trajgl);
+
+//Shaders
+var planetVertexShader = `#version 300 es
+in vec2 position;
+
+void main() {
+	gl_Position = position;
+}`;
+
+var planetFragmentShader = `#version 300 es
+void main() {
+	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}`;
+
+function makeProgram(gl, vertexShaderSource, fragmentShaderSource) {
+	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+	gl.shaderSource(vertexShader, vertexShaderSource);
+	gl.compileShader(vertexShader);
+
+	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        	throw 'Could not compile vertex shader: \n\n' + gl.getShaderInfoLog(shader) + '\n\n, check line 230 of main.js'; //Shader could not compile
+	}
+
+	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+	gl.shaderSource(fragmentShader, fragmentShaderSource);
+	gl.compileShader(fragmentShader);
+
+	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+        	throw 'Could not compile fragment shader: \n\n' + gl.getShaderInfoLog(shader) + '\n\n, check line 230 of main.js'; //Shader could not compile
+	}
+
+	var shader = gl.createProgram();
+	gl.attachShader(shader, vertexShader);
+	gl.attachShader(shader, fragmentShader);
+	gl.linkProgram(shader);
+	return shader;
+}
+
+var planetProgram = makeProgram(trajgl, planetVertexShader, planetFragmentShader);
+
+var planetMesh = createSphere(1, 10); //Sphere with radius 1 and 800 triangles, a test for rendering onto the canvas
+
+var planetPositionAttribLocation = trajgl.getAttribLocation(planetProgram, 'position');
+var planetPositionBuffer = trajgl.createBuffer();
+trajgl.bindBuffer(trajgl.ARRAY_BUFFER, planetPositionBuffer);
+trajgl.bufferData(trajgl.ARRAY_BUFFER, new Float32Array(planetMesh[0]), gl.STATIC_DRAW);
+trajgl.bindBuffer(trajgl.ARRAY_BUFFER, null);
 
 //Animation
 function animate(time) {
@@ -228,6 +273,14 @@ function animate(time) {
 	trajgl.clear(trajgl.COLOR_BUFFER_BIT | trajgl.DEPTH_BUFFER_BIT);
 	trajgl.enable(trajgl.DEPTH_TEST);
 	trajgl.clearColor(0.055,0.071,0.102,1);
+
+	trajgl.useProgram(planetProgram);
+
+	trajgl.bindBuffer(trajgl.ARRAY_BUFFER, planetPositionBuffer);
+	trajgl.vertexAttribPointer(planetPositionAttribLocation, 3, gl.FLOAT, false, 0, 0);
+	trajgl.enableVertexAttribArray(planetPositionAttribLocation);
+
+	gl.drawArrays(gl.TRIANGLES, 0, planetMesh[0].length/3);
 
 	//Request next frame
 	window.requestAnimationFrame(animate);
