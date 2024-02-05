@@ -224,18 +224,21 @@ console.log(trajgl);
 //Shaders
 var planetVertexShader = `#version 300 es
 in vec4 position;
+out vec4 fragNormal;
 
 void main() {
 	gl_Position = position * vec4(0.5625, 1.0, 1.0, 1.0);
+	fragNormal = position;
 }`;
 
 var planetFragmentShader = `#version 300 es
 precision mediump float;
 
+in vec4 fragNormal;
 out vec4 fragColor;
 
 void main() {
-	fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+	fragColor = vec4(1.0, 0.0, 0.0, 1.0) * dot(vec4(-1.0, 1.0, -1.0, 0.0), fragNormal);
 }`;
 
 function makeProgram(gl, vertexShaderSource, fragmentShaderSource) {
