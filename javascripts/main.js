@@ -262,7 +262,7 @@ var planetMesh = createSphere(1, 10); //Sphere with radius 1 and 800 triangles, 
 var planetPositionAttribLocation = trajgl.getAttribLocation(planetProgram, 'position');
 var planetPositionBuffer = trajgl.createBuffer();
 trajgl.bindBuffer(trajgl.ARRAY_BUFFER, planetPositionBuffer);
-trajgl.bufferData(trajgl.ARRAY_BUFFER, new Float32Array(planetMesh[0]), gl.STATIC_DRAW);
+trajgl.bufferData(trajgl.ARRAY_BUFFER, new Float32Array(planetMesh[0]), trajgl.STATIC_DRAW);
 trajgl.bindBuffer(trajgl.ARRAY_BUFFER, null);
 
 //Animation
@@ -281,10 +281,10 @@ function animate(time) {
 	trajgl.useProgram(planetProgram);
 
 	trajgl.bindBuffer(trajgl.ARRAY_BUFFER, planetPositionBuffer);
-	trajgl.vertexAttribPointer(planetPositionAttribLocation, 3, gl.FLOAT, false, 0, 0);
+	trajgl.vertexAttribPointer(planetPositionAttribLocation, 3, trajgl.FLOAT, false, 0, 0);
 	trajgl.enableVertexAttribArray(planetPositionAttribLocation);
 
-	gl.drawArrays(gl.TRIANGLES, 0, planetMesh[0].length/3);
+	trajgl.drawArrays(trajgl.TRIANGLES, 0, planetMesh[0].length/3);
 
 	//Request next frame
 	window.requestAnimationFrame(animate);
