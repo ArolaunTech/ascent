@@ -273,7 +273,9 @@ function animate(time) {
 		renderBody();
 	}
 
-	trajgl.viewport(0,0,trajgl.canvas.width, trajgl.canvas.height);
+	trajgl.viewport(0,0,trajgl.canvas.height, trajgl.canvas.height);
+	trajcanvas.width = trajcanvas.clientWidth;
+	trajcanvas.height = trajcanvas.clientHeight;
 	trajgl.clear(trajgl.COLOR_BUFFER_BIT | trajgl.DEPTH_BUFFER_BIT);
 	trajgl.enable(trajgl.DEPTH_TEST);
 	trajgl.clearColor(0.055,0.071,0.102,1);
